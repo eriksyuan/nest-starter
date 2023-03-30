@@ -1,0 +1,11 @@
+env: dev
+
+DATE_BASE:
+  username: root
+  password: mysql1234
+  port: 3306
+  host: localhost
+  database: steam
+  debug: true
+
+secret: sadasdgfh
