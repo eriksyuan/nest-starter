@@ -10,7 +10,7 @@ import { Repository } from 'typeorm';
 import { User } from './entities/user.entity';
 import { Logger } from 'winston';
 import { WINSTON_MODULE_PROVIDER } from 'nest-winston';
-import { RegistryUserDto } from './dtos/registry-user.dto';
+import { RegistryUserDto } from '../auth/dtos/registry-user.dto';
 import { plainToClass } from 'class-transformer';
 import { compare } from 'bcrypt';
 import { UserOutputDto } from './dtos/user-output.dto';
@@ -24,7 +24,7 @@ export class UsersService {
     private logger: Logger,
   ) {}
 
-  async registryUser(registryUserDto: RegistryUserDto) {
+  async createUser(registryUserDto: RegistryUserDto) {
     const { username, password, confirm_password } = registryUserDto;
 
     if (password !== confirm_password) {
@@ -77,6 +77,14 @@ export class UsersService {
       throw new UnauthorizedException('密码错误');
     }
     delete user.password;
+    return user;
+  }
+
+  async findUserById(id: number) {
+    const user = await this.usersRepository.findOne({
+      where: { id },
+    });
+    console.log(user);
     return user;
   }
 }

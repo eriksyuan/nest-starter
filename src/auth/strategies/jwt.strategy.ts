@@ -10,11 +10,11 @@ export class JwtStrategy extends PassportStrategy(Strategy, JWT_STRATEGY) {
     super({
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
       secretOrKey: configService.get('jwt.secret'),
-      algorithms: ['RS256'],
     });
   }
 
   async validate(payload: any) {
+    console.log(payload, 'PassportStrategy');
     return {
       id: payload.id,
     };

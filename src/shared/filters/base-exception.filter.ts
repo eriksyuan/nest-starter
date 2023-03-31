@@ -6,7 +6,7 @@ import {
   Inject,
 } from '@nestjs/common';
 
-import type { Response, Request } from 'express';
+import type { Response } from 'express';
 import { WINSTON_MODULE_PROVIDER } from 'nest-winston';
 import { Logger } from 'winston';
 import { getRequestContext } from '../requestContext';

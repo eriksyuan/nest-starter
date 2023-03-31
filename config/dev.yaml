@@ -8,4 +8,4 @@ DATE_BASE:
   database: steam
   debug: true
 
-secret: sadasdgfh
+jwt.secret: sadasdgfh

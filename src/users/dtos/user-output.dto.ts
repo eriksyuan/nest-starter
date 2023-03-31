@@ -1,15 +1,20 @@
+import { ApiProperty } from '@nestjs/swagger';
 import { Expose } from 'class-transformer';
 
 export class UserOutputDto {
   @Expose()
+  @ApiProperty()
   id: number;
 
   @Expose()
+  @ApiProperty()
   username: string;
 
   @Expose()
-  createdAt: number;
+  @ApiProperty()
+  createdAt: string;
 
   @Expose()
-  updatedAt: number;
+  @ApiProperty()
+  updatedAt: string;
 }

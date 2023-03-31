@@ -11,7 +11,7 @@ async function bootstrap() {
 
   app.useGlobalPipes(new ValidationPipe());
   // swagger文档
-  // generateDocument(app);
+  generateDocument(app);
   await app.listen(3000);
 }
 bootstrap();

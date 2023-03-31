@@ -1,20 +1,30 @@
 import { UsersService } from './users.service';
+import { Controller, Get, HttpStatus, Req, UseGuards } from '@nestjs/common';
+import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 import {
-  Body,
-  ClassSerializerInterceptor,
-  Controller,
-  Post,
-  UseInterceptors,
-} from '@nestjs/common';
-import { RegistryUserDto } from './dtos/registry-user.dto';
+  ApiBearerAuth,
+  ApiOperation,
+  ApiResponse,
+  ApiTags,
+} from '@nestjs/swagger';
+import { UserOutputDto } from './dtos/user-output.dto';
 
+@ApiTags('user')
 @Controller('/users')
 export class UsersController {
   constructor(private usersService: UsersService) {}
 
-  @UseInterceptors(ClassSerializerInterceptor)
-  @Post('/registry')
-  registry(@Body() registryUserDto: RegistryUserDto) {
-    return this.usersService.registryUser(registryUserDto);
+  @ApiOperation({
+    summary: '获取用户信息',
+  })
+  @ApiBearerAuth()
+  @ApiResponse({
+    status: HttpStatus.OK,
+    type: UserOutputDto,
+  })
+  @UseGuards(JwtAuthGuard)
+  @Get('me')
+  async getInfo(@Req() req) {
+    return this.usersService.findUserById(req.user.id);
   }
 }
